@@ -9,8 +9,6 @@ using EConsulting.Controllers;
 using EConsulting.Controllers.Dto;
 using EConsulting.Repository;
 using EConsulting.Service;
-
-using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -27,6 +25,12 @@ namespace WebApiTests
 {
     public class UnitTest1
     {
+
+        private static IConfigurationRoot config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json").Build();
+        private static TestServer server = new TestServer(new WebHostBuilder().UseStartup<Startup>().UseConfiguration(config));
+        private static HttpClient client = server.CreateClient();
+
         [Fact]
         public async Task wheReceivedValidDataThenReturnValidResponse()
         {
@@ -56,7 +60,6 @@ namespace WebApiTests
             var start = DateTime.Parse("2020-11-10");
             var end = DateTime.Parse("2020-10-10");
 
-            // when
             var repo = new Mock<IRepository>();
             var mapper = new Mock<IMapper>();
             var service = new TimeRangeServiceImpl(repo.Object, mapper.Object);
@@ -68,22 +71,12 @@ namespace WebApiTests
         [Fact]
         public async Task whenSentNotValidRequestThenResponseIsHttpRequestException()
         {
-            var config = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json").Build();
-            var server = new TestServer(new WebHostBuilder().UseStartup<Startup>().UseConfiguration(config));
-            var client = server.CreateClient();
-
             await Assert.ThrowsAsync<HttpRequestException>(() => client.GetFromJsonAsync<IActionResult>("/api/TimeRange/get/test/test"));
         }
 
         [Fact]
         public async Task whenSentValidRequestThenResponseOk()
         {
-            var config = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json").Build();
-            var server = new TestServer(new WebHostBuilder().UseStartup<Startup>().UseConfiguration(config));
-            var client = server.CreateClient();
-
             var result = await client.GetFromJsonAsync<List<TimeRangeDto>>("/api/TimeRange/get/2017-10-10/2021-10-10");
 
             Assert.IsType<List<TimeRangeDto>>(result);
