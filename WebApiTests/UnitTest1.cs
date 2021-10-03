@@ -4,17 +4,24 @@ using System.Threading.Tasks;
 
 using AutoMapper;
 
+using EConsulting;
 using EConsulting.Controllers;
 using EConsulting.Controllers.Dto;
 using EConsulting.Repository;
 using EConsulting.Service;
 
+using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 using Moq;
 
 using Xunit;
+using Microsoft.AspNetCore.TestHost;
+using System.Net.Http.Json;
+using Microsoft.Extensions.Configuration;
+using System.Net.Http;
 
 namespace WebApiTests
 {
@@ -56,6 +63,30 @@ namespace WebApiTests
 
             // then
             await Assert.ThrowsAsync<ArgumentException>(() => service.GetTimeRangeListAsync(start, end));
+        }
+
+        [Fact]
+        public async Task whenSentNotValidRequestThenResponseIsHttpRequestException()
+        {
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json").Build();
+            var server = new TestServer(new WebHostBuilder().UseStartup<Startup>().UseConfiguration(config));
+            var client = server.CreateClient();
+
+            await Assert.ThrowsAsync<HttpRequestException>(() => client.GetFromJsonAsync<IActionResult>("/api/TimeRange/get/test/test"));
+        }
+
+        [Fact]
+        public async Task whenSentValidRequestThenResponseOk()
+        {
+            var config = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json").Build();
+            var server = new TestServer(new WebHostBuilder().UseStartup<Startup>().UseConfiguration(config));
+            var client = server.CreateClient();
+
+            var result = await client.GetFromJsonAsync<List<TimeRangeDto>>("/api/TimeRange/get/2017-10-10/2021-10-10");
+
+            Assert.IsType<List<TimeRangeDto>>(result);
         }
     }
 }
