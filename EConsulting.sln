@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{1724C9D7-E1F5-42F1-9A02-192FA42CB40C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EConsultingWebClient", "WebClient\EConsultingWebClient.csproj", "{52D765CE-3977-4A9C-AB56-22AA3757BEB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebClient", "WebClient\WebClient.csproj", "{52D765CE-3977-4A9C-AB56-22AA3757BEB4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbCloneApp", "DbCloneApp\DbCloneApp.csproj", "{205C71C3-35F0-4112-B2DE-61097C0300A1}"
 EndProject
