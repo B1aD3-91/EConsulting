@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
-using EConsulting.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using EConsulting.Service;
-using AutoMapper;
 using EConsulting.Controllers.Dto;
-using System.Linq;
 
 namespace EConsulting.Controllers
 {
