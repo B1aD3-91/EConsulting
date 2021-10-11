@@ -25,7 +25,7 @@ namespace EConsulting.Service
 
         public async Task<long> CreateTimeRangeAsync(TimeRangeDto timeRangedto)
         {
-            if(timeRangedto.Start > timeRangedto.End)
+            if(timeRangedto.StartDate > timeRangedto.EndDate)
             {
                 throw new ArgumentException();
             }

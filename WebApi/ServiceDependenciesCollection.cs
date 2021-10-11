@@ -1,17 +1,17 @@
 ﻿
-using EConsulting.Repository;
+using System;
 
 using EConsulting.Data;
+using EConsulting.Repository;
+using EConsulting.Service;
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using EConsulting.Service;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EConsulting
 {
-    public static class ServiceDependenciesCollection
+	public static class ServiceDependenciesCollection
     {
         public static void AddDomainServiceCollection(this IServiceCollection collection, IConfiguration configuration)
         {
@@ -19,11 +19,13 @@ namespace EConsulting
             collection.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(connectioString);
-               // options.UseInMemoryDatabase("InMem");
+               //options.UseInMemoryDatabase("InMem");
             });
             collection.AddScoped<IRepository, RepositoryImpl>();
             collection.AddScoped<ITimeRangeService, TimeRangeServiceImpl>();
             collection.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            
         }
     }
 }

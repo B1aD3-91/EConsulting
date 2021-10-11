@@ -15,8 +15,8 @@ namespace WebApiTests
         {
             return new TimeRangeDto()
             {
-                Start = DateTime.Parse("2020-10-10"),
-                End = DateTime.Parse("2020-10-10")
+                StartDate = DateTime.Parse("2020-10-10"),
+                EndDate = DateTime.Parse("2020-10-10")
             };
         }
 
@@ -43,13 +43,13 @@ namespace WebApiTests
             {
                 new TimeRangeDto()
                 {
-                    Start = DateTime.Parse("2020-10-10"),
-                    End = DateTime.Parse("2020-10-10")
+                    StartDate = DateTime.Parse("2020-10-10"),
+                    EndDate = DateTime.Parse("2020-10-10")
                 },
                 new TimeRangeDto()
                 {
-                    Start = DateTime.Parse("2018-10-10"),
-                    End = DateTime.Parse("2018-10-10")
+                    StartDate = DateTime.Parse("2018-10-10"),
+                    EndDate = DateTime.Parse("2018-10-10")
                 }
             };
         }

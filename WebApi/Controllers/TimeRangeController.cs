@@ -24,7 +24,7 @@ namespace EConsulting.Controllers
         [HttpPut("create")]
         public async Task<ActionResult> CreateTimeRange(TimeRangeDto timeRangeDto)
         {
-            log.LogInformation($"Received request to create: {timeRangeDto.Start} : {timeRangeDto.End}");
+            log.LogInformation($"Received request to create: {timeRangeDto.StartDate} : {timeRangeDto.EndDate}");
             var result = await timeRangeService.CreateTimeRangeAsync(timeRangeDto);
             return Ok($"Object successfull created with Id: {result}");
         }
